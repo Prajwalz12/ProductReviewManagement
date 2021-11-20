@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace ProductReviewManagement
 {
-    class Program
+    class ProductManagement
     {
-        static void Main(string[] args)
+        List<ProductReview> ProductList;
+
+        public void ProductReviews()
         {
-            Console.WriteLine("Welcome to product review management");
-
-
-            List<ProductReview> Product;
-            Product = new List<ProductReview>
+            ProductList = new List<ProductReview>
             {
                 new ProductReview() { ProductId = 10, UserId = 13, Rating = 4, Review = "Average", isLike = true },
                 new ProductReview() { ProductId = 70, UserId = 16, Rating = 2, Review = "bad", isLike = false },
@@ -38,11 +38,22 @@ namespace ProductReviewManagement
                 new ProductReview() { ProductId = 50, UserId = 11, Rating = 2, Review = "bad", isLike = false },
                 new ProductReview() { ProductId = 60, UserId = 25, Rating = 3, Review = "Average", isLike = true },
                 new ProductReview() { ProductId = 90, UserId = 19, Rating = 1, Review = "bad", isLike = false }
+            };
+        }
 
-                 ProductManagement pre = new ProductManagement();
+        public void Top3Products(List<ProductReview> ProductList)
+        {
+            var result = (from pr
+                          in ProductList
+                          orderby pr.Rating descending
+                          select pr).Take(3);
+
+            Console.WriteLine(" displaying Top 3 products");
+
+            foreach (ProductReview p in ProductList)
+            {
+                Console.WriteLine("Product Id : {0}\tUser Id : {1}\tRating : {2}\tReview : {3}\tIsLike : {4}", p.ProductId, p.UserId, p.Rating, p.Review, p.isLike);
             }
         }
     }
 }
-        
-        
