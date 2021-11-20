@@ -9,9 +9,8 @@ namespace ProductReviewManagement
         {
             Console.WriteLine("Welcome to product review management");
 
-
-            List<ProductReview> Product;
-            Product = new List<ProductReview>
+            List<ProductReview> ProductList;
+            ProductList = new List<ProductReview>
             {
                 new ProductReview() { ProductId = 10, UserId = 13, Rating = 4, Review = "Average", isLike = true },
                 new ProductReview() { ProductId = 70, UserId = 16, Rating = 2, Review = "bad", isLike = false },
@@ -38,9 +37,12 @@ namespace ProductReviewManagement
                 new ProductReview() { ProductId = 50, UserId = 11, Rating = 2, Review = "bad", isLike = false },
                 new ProductReview() { ProductId = 60, UserId = 25, Rating = 3, Review = "Average", isLike = true },
                 new ProductReview() { ProductId = 90, UserId = 19, Rating = 1, Review = "bad", isLike = false }
+            };
 
-                 ProductManagement pre = new ProductManagement();
-            }
+                 ProductManagement pm = new ProductManagement();
+                 pm.Top3Products(ProductList);
+                 pm.RetriveRecords(ProductList);
+
         }
     }
 }
