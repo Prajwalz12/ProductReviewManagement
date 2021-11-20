@@ -5,42 +5,16 @@ using System.Text;
 
 namespace ProductReviewManagement
 {
-    class ProductManagement
+    public class ProductManagement
     {
-        List<ProductReview> ProductList;
-
-        public void ProductReviews()
+        public void DisplayAllProducts(List<ProductReview> ProductList)
         {
-            ProductList = new List<ProductReview>
+            Console.WriteLine("\n - - -  Displaying All products - - - ");
+            foreach (ProductReview p in ProductList)
             {
-                new ProductReview() { ProductId = 10, UserId = 13, Rating = 4, Review = "Average", isLike = true },
-                new ProductReview() { ProductId = 70, UserId = 16, Rating = 2, Review = "bad", isLike = false },
-                new ProductReview() { ProductId = 30, UserId = 111, Rating = 1, Review = "bad", isLike = false },
-                new ProductReview() { ProductId = 80, UserId = 167, Rating = 5, Review = "good", isLike = true },
-                new ProductReview() { ProductId = 20, UserId = 13, Rating = 4, Review = "Average", isLike = true },
-                new ProductReview() { ProductId = 60, UserId = 15, Rating = 4, Review = "Average", isLike = true },
-                new ProductReview() { ProductId = 10, UserId = 19, Rating = 1, Review = "bad", isLike = false },
-                new ProductReview() { ProductId = 80, UserId = 12, Rating = 2, Review = "bad", isLike = false },
-                new ProductReview() { ProductId = 50, UserId = 16, Rating = 3, Review = "Average", isLike = true },
-                new ProductReview() { ProductId = 40, UserId = 111, Rating = 2, Review = "bad", isLike = false },
-                new ProductReview() { ProductId = 100, UserId = 178, Rating = 1, Review = "bad", isLike = false },
-                new ProductReview() { ProductId = 30, UserId = 123, Rating = 3, Review = "Average", isLike = true },
-                new ProductReview() { ProductId = 90, UserId = 18, Rating = 4, Review = "Average", isLike = true },
-                new ProductReview() { ProductId = 20, UserId = 11, Rating = 5, Review = "good", isLike = true },
-                new ProductReview() { ProductId = 70, UserId = 16, Rating = 5, Review = "good", isLike = true },
-                new ProductReview() { ProductId = 10, UserId = 19, Rating = 5, Review = "good", isLike = true },
-                new ProductReview() { ProductId = 90, UserId = 12, Rating = 2, Review = "bad", isLike = false },
-                new ProductReview() { ProductId = 40, UserId = 15, Rating = 1, Review = "bad", isLike = false },
-                new ProductReview() { ProductId = 60, UserId = 11, Rating = 4, Review = "Average", isLike = true },
-                new ProductReview() { ProductId = 20, UserId = 15, Rating = 1, Review = "bad", isLike = false },
-                new ProductReview() { ProductId = 80, UserId = 19, Rating = 5, Review = "good", isLike = true },
-                new ProductReview() { ProductId = 30, UserId = 19, Rating = 5, Review = "good", isLike = true },
-                new ProductReview() { ProductId = 50, UserId = 11, Rating = 2, Review = "bad", isLike = false },
-                new ProductReview() { ProductId = 60, UserId = 25, Rating = 3, Review = "Average", isLike = true },
-                new ProductReview() { ProductId = 90, UserId = 19, Rating = 1, Review = "bad", isLike = false }
-            };
+                Console.WriteLine("Product Id : {0}\tUser Id : {1}\tRating : {2}\tReview : {3}\tIsLike : {4}", p.ProductId, p.UserId, p.Rating, p.Review, p.isLike);
+            }
         }
-
         public void Top3Products(List<ProductReview> ProductList)
         {
             var result = (from pr
@@ -53,6 +27,31 @@ namespace ProductReviewManagement
             foreach (ProductReview p in ProductList)
             {
                 Console.WriteLine("Product Id : {0}\tUser Id : {1}\tRating : {2}\tReview : {3}\tIsLike : {4}", p.ProductId, p.UserId, p.Rating, p.Review, p.isLike);
+            }
+        }
+
+        public void RetriveRecords(List<ProductReview> ProductList)
+        {
+            List<ProductReview> result;
+            result = (from prod in ProductList where (prod.Rating > 3) && (prod.ProductId == 10 || prod.ProductId == 40 || prod.ProductId == 90) select prod).ToList();
+
+            Console.WriteLine(" displaying Top 3 products");
+
+            foreach (ProductReview p in result)
+            {
+                Console.WriteLine("Product Id : {0}\tUser Id : {1}\tRating : {2}\tReview : {3}\tIsLike : {4}", p.ProductId, p.UserId, p.Rating, p.Review, p.isLike);
+            }
+        }
+        public void CountOfUser(List<ProductReview> ProductList)
+        {
+            Console.WriteLine("\n - - -  Retrieve count of review present for each productID - - - ");
+            var reviewResult = ProductList
+                .GroupBy(p => p.ProductId)
+                .Select(pi => new
+                { ProductId = pi.Key, count = pi.Count() });
+            foreach (var p in reviewResult)
+            {
+                Console.WriteLine(" Product Id : {0} \t ReviewCount : {1}", p.ProductId, p.count);
             }
         }
     }

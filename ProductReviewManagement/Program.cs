@@ -40,8 +40,10 @@ namespace ProductReviewManagement
             };
 
                  ProductManagement pm = new ProductManagement();
-                 pm.Top3Products(ProductList);
-                 pm.RetriveRecords(ProductList);
+                    pm.DisplayAllProducts(ProductList);
+                    pm.Top3Products(ProductList);
+                    pm.RetriveRecords(ProductList);
+                    pm.CountOfUser(ProductList);
 
         }
     }
